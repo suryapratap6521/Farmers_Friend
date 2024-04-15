@@ -19,6 +19,7 @@ function App() {
      
       <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       <Route path="/community" element={<PrivateRoute><Community_chat /></PrivateRoute>} />
+      
     </Routes>
   );
 }

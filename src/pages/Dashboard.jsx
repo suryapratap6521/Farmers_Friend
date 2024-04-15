@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../services/operations/authApi";
 import { Link } from "react-router-dom";
+import Chatbot from '../components/Common/chatbot/Chatbot';
 
 
 const Dashboard = () => {
@@ -21,6 +22,7 @@ const Dashboard = () => {
             <Button variant='contained' onClick={handleLogout}>Logout</Button>
             <h1>Dashboard</h1>
             <Button variant='contained' component={Link} to='/community'>Community Chat</Button>
+            <Chatbot />
         </div>
     )
 }
