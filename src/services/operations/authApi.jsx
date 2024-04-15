@@ -96,7 +96,7 @@ export function logout(navigate) {
     console.log(typeof localStorage.getItem("token")===undefined);
     
     toast.success("Logged Out")
-    navigate("/login")
+    navigate("/")
   }
 }
 
