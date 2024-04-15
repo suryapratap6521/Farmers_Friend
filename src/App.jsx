@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+// import { useState } from 'react';
+// import { Routes, Route } from 'react-router-dom';
 
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import Home from './pages/Home';
-import OpenRoute from './components/Core/Auth/OpenRoute';
-import Dashboard from "./pages/Dashboard";
-import PrivateRoute from './components/Core/Auth/PrivateRoute';
+// import Login from './pages/Login';
+// import SignUp from './pages/SignUp';
+import Home from './Widgets/home';
+// import OpenRoute from './components/Core/Auth/OpenRoute';
+// import Dashboard from "./pages/Dashboard";
+// import PrivateRoute from './components/Core/Auth/PrivateRoute';
 
 function App() {
   return (
     <div>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<OpenRoute>
           <Login />
@@ -22,7 +22,8 @@ function App() {
         <Route path='/dashboard' element={<PrivateRoute>
           <Dashboard />
         </PrivateRoute>} />
-      </Routes>
+      </Routes> */}
+      <Home />
     </div>
   )
 }
