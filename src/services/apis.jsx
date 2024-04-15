@@ -6,3 +6,10 @@ export const endpoints = {
   SIGNUP_API: BASE_URL + "/auth/signup",
   LOGIN_API: BASE_URL + "/auth/login",
 }
+
+export const communityEndpoints={
+  CREATE_MESSAGE:BASE_URL + "/community/createmessage",
+  GET_ALL_MESSAGE:BASE_URL + "/community/getallmessage",
+  DELETE_MESSAGE:BASE_URL + "/community/deletemessage",
+  ALL_USERS:BASE_URL + "/community/allusers",
+}
