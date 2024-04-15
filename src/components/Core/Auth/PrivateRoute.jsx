@@ -8,7 +8,7 @@ export default function PrivateRoute({ children }) {
   // const {user}=useSelector((state)=>state.profile);
 
   if (token !== null) {
-    return children;ss
+    return children;
   }
   else {
     return <Navigate to="/login" />
