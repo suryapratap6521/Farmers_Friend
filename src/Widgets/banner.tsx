@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material'
+import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
@@ -37,12 +38,18 @@ const Banner = () => {
                     <h3 className='text-3xl text-center'>Built with love for people.</h3>
                     <br />
                     <div className='flex w-full justify-center'>
-                        <Button color="primary" variant='contained' className="text-xl !p-8">
-                            Get Started
-                        </Button>
+                        <Link to={'/'}>
+                            <Button color="primary" variant='contained' className="text-xl !p-8">
+                                Get Started
+                            </Button>
+                        </Link>
                     </div>
                     <br />
-                    <h5 className='text-center text-lg'>Explore</h5>
+                    <h5 className='text-center text-lg'>
+                        <Link to={'/signup'}>
+                            Explore
+                        </Link>
+                    </h5>
                 </div>
             </div>
         </div>

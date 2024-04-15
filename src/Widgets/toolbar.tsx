@@ -5,13 +5,16 @@ import { Button } from "@mui/material";
 const Toolbar = () => {
     return (
         <>
-            <button color="primary" className="text-lg">
-                Start Trial
-            </button>
-            <Button
-                title="here"
-            />
-            <Link to={"/sign-up"}> Login </Link>
+            <Link to={"/signup"}>
+                <Button variant='contained'>
+                    Explore
+                </Button>
+            </Link>
+            <Link to={"/login"}>
+                <Button variant='contained'>
+                    Login
+                </Button>
+            </Link>
         </>
     )
 }
