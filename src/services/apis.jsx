@@ -13,3 +13,6 @@ export const communityEndpoints={
   DELETE_MESSAGE:BASE_URL + "/community/deletemessage",
   ALL_USERS:BASE_URL + "/community/allusers",
 }
+export const generativeEndpoints={
+  GET_DATA:BASE_URL+"/generative/run"
+}
