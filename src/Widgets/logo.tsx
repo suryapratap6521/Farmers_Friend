@@ -1,8 +1,11 @@
 import React from 'react'
+// import logo1 from '../assets/logo1.png'
+// import logo2 from '../assets/logo1.png'
 
 const logo = () => {
     return (
         <div className="relative flex items-center">
+            {/* <img src={logo1} alt='' className="absolute fill-black cursor-pointer h-[50px] lg:h-[120px]" /> */}
             <svg
                 version="1.1"
                 id="a"

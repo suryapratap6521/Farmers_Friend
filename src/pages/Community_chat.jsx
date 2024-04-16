@@ -1,35 +1,64 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createMessage, deleteMessage, getAllMessage, allUserApi } from '../services/operations/CommunityApi';
-import { setMessages } from '../slices/communitySlice';
 import { toast } from "react-hot-toast";
-import { Container, Typography, TextField, Button, Grid, Paper, Avatar, Box, Divider, Card, CardContent, IconButton } from '@mui/material';
+import { Container, Typography, TextField, Grid, Paper, AppBar, Toolbar, Avatar, IconButton, Divider } from '@mui/material';
 import { styled } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send'; // Import the SendIcon
+import SendIcon from '@mui/icons-material/Send';
+import farmerImg from "../assets/farmer.jpg";
+// import user1 from "../assets/user1.jpg";
+// import user2 from "../assets/user2.jpg";
+import Box from '@mui/material/Box';
 
-const StyledUserList = styled('div')({
+// Styling the chat bubble
+const ChatBubble = styled(Paper)({
+  margin: '10px 0',
+  padding: '10px',
+  borderRadius: '10px',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  maxWidth: '70%',
+});
+
+// Styling the sender's chat bubble
+const SenderChatBubble = styled(ChatBubble)({
+  backgroundColor: '#A8DDFD',
+  alignSelf: 'flex-end',
+});
+
+// Styling the receiver's chat bubble
+const ReceiverChatBubble = styled(ChatBubble)({
+  backgroundColor: '#f8e896',
+  alignSelf: 'flex-start',
+});
+
+// Styling the user list
+const StyledUserList = styled('div')({
   padding: '10px',
   backgroundColor: '#f5f5f5',
   borderRadius: '10px',
-  height: 'calc(100vh - 64px)', // Adjust the height based on your header height
+  height: 'calc(100vh - 64px)',
+  overflowY: 'auto',
 });
 
-const StyledUserItem = styled(Card)({
-  width: '100%',
-  marginBottom: '10px',
-});
-
-const StyledCardContent = styled(CardContent)({
+// Styling individual user item
+const StyledUserItem = styled(Paper)({
   display: 'flex',
   alignItems: 'center',
+  padding: '10px',
+  marginBottom: '10px',
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: '#e0e0e0',
+  },
 });
 
-const StyledUserAvatar = styled(Avatar)({
-  marginRight: '10px',
+// Styling the chat container
+const ChatContainer = styled(Grid)({
+  padding: '20px',
+  height: 'calc(100vh - 128px)',
+  overflowY: 'auto',
 });
 
 const CommunityChat = () => {
@@ -50,6 +79,7 @@ const CommunityChat = () => {
         chatEndRef.current.scrollIntoView({ behavior: "smooth" });
       } catch (error) {
         console.error("Error fetching data:", error);
+        toast.error("Failed to fetch data");
       }
     };
     fetchData();
@@ -64,6 +94,7 @@ const CommunityChat = () => {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     } catch (error) {
       console.error("Error creating message:", error);
+      toast.error("Failed to send message");
     }
   }
 
@@ -73,6 +104,7 @@ const CommunityChat = () => {
       toast.success("Message deleted");
     } catch (error) {
       console.error("Error deleting message:", error);
+      toast.error("Failed to delete message");
     }
   }
 
@@ -83,66 +115,77 @@ const CommunityChat = () => {
     }
   }, [inputRef]);
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString();
+  };
+
   return (
     <Container maxWidth="lg">
-      <Box position="fixed" top={0} left={0} right={0} padding="20px" backgroundColor="#fff" zIndex={1}>
-        <Typography variant="h2"><b>Farmers community</b></Typography>
-      </Box>
-      <Grid container spacing={3} style={{ marginTop: '100px' }}>
-        <Grid item xs={12} md={8}>
-          <Paper style={{ padding: '20px', marginBottom: '20px', maxHeight: '60vh', overflowY: 'auto' }}>
-            <Box mt={2} mb={4}>
-              {messages.map((msg) => (
-                <Paper key={msg._id} elevation={3} style={{ padding: '15px', marginBottom: '15px', backgroundColor: user._id === msg.user._id ? '#A8DDFD' : '#f8e896', borderRadius: '10px', marginLeft: user._id === msg.user._id ? '20px' : '0', marginRight: user._id !== msg.user._id ? '20px' : '0' }}>
+      <AppBar position="fixed" color="secondary">
+        <Toolbar>
+          <Avatar src={farmerImg} />
+          <Typography variant="h6" sx={{ marginLeft: '10px', flexGrow: 1 }}>Farmer's Community</Typography>
+          {allUsers.map((user) => (
+            <Avatar key={user._id} src={user.image} sx={{ marginLeft: '-5px', border: '2px solid white', position: 'relative', zIndex: '1' }} />
+          ))}
+        </Toolbar>
+      </AppBar>
+      <Toolbar /> {/* To push content below the app bar */}
+      <Grid container style={{ marginTop: '64px' }}>
+        <Grid item xs={12} md={8} component={ChatContainer}>
+          {messages.map((msg) => (
+            <div key={msg._id} ref={chatEndRef}>
+              {user._id === msg.user._id ? (
+                <SenderChatBubble>
+                  <Typography variant="body1">{msg.message}</Typography>
+                  <Typography variant="caption">{formatDate(msg.createdAt)}</Typography>
+                  <IconButton onClick={() => handleDeleteMessage(msg._id)} style={{ color: 'red', cursor: 'pointer', position: 'absolute', top: '5px', right: '5px' }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </SenderChatBubble>
+              ) : (
+                <ReceiverChatBubble>
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
                     <Avatar alt="user avatar" src={msg.user.image} />
                     <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>{msg.user.username}</Typography>
                   </div>
-                  <Typography variant="body1" style={{ margin: '0' }}>{msg.message}</Typography>
-                  {user._id === msg.user._id && (
-                    <DeleteIcon onClick={() => handleDeleteMessage(msg._id)} style={{ color: 'red', cursor: 'pointer' }}/>
-                  )}
-                </Paper>
-              ))}
-              {/* Empty div to be used as a reference for scrolling to the end of the chat */}
-              <div ref={chatEndRef}></div>
-            </Box>
-          </Paper>
-          <Box style={{ paddingBottom: '70px' }}>
-            <form onSubmit={handleMessageSubmit}>
-              <TextField
-                label="Type your message..."
-                variant="outlined"
-                fullWidth
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                style={{ marginBottom: '10px' }}
-                inputRef={(ref) => setInputRef(ref)} // Assigning the input ref
-                InputProps={{
-                  endAdornment: (
-                    <IconButton type="submit">
-                      <SendIcon />
-                    </IconButton>
-                  ),
-                }}
-              />
-            </form>
-          </Box>
+                  <Typography variant="body1">{msg.message}</Typography>
+                  <Typography variant="caption">{formatDate(msg.createdAt)}</Typography>
+                </ReceiverChatBubble>
+              )}
+            </div>
+          ))}
         </Grid>
         <Grid item xs={12} md={4}>
           <StyledUserList>
             <Typography variant="h6" gutterBottom>Farmers In Community</Typography>
             {allUsers.map((user) => (
               <StyledUserItem key={user._id}>
-                <StyledCardContent>
-                  <StyledUserAvatar alt="user avatar" src={user.image} />
-                  <Typography variant="body1">{user.username}</Typography>
-                </StyledCardContent>
+                <Avatar alt="user avatar" src={user.image} />
+                <Typography variant="body1">{user.username}</Typography>
               </StyledUserItem>
             ))}
           </StyledUserList>
         </Grid>
       </Grid>
+      <form onSubmit={handleMessageSubmit} style={{ position: 'fixed', bottom: '0', left: '0', width: '100%', padding: '10px', borderTop: '1px solid #ccc', backgroundColor: '#f9f9f9' }}>
+        <TextField
+          label="Type your message..."
+          variant="outlined"
+          fullWidth
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          inputRef={(ref) => setInputRef(ref)} // Assigning the input ref
+          InputProps={{
+            endAdornment: (
+              <IconButton type="submit">
+                <SendIcon />
+              </IconButton>
+            ),
+          }}
+        />
+      </form>
     </Container>
   );
 }

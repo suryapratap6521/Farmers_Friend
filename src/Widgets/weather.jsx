@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './weather.css';
+import Header from './header'
+import Footer from './footer'
 
 import cloud from '../assets/cloud.png';
 import wind from '../assets/wind.png';
@@ -76,8 +78,10 @@ const Weather = () => {
     };
 
     return (
+        <div>
+            <Header/>
         <div className="wrapper">
-            <h1>Weather App</h1>
+            <h1>Know the current Forecast</h1>
             <div className="tab-container">
                 <p className={`tab ${currentTab === 'userweather' ? 'current-tab' : ''}`} onClick={() => switchTab('userweather')} data-userweather>Your Weather</p>
                 <p className={`tab ${currentTab === 'searchweather' ? 'current-tab' : ''}`} onClick={() => switchTab('searchweather')} data-searchweather>Search Weather</p>
@@ -136,10 +140,13 @@ const Weather = () => {
                         <input type="text" placeholder="Search for city..." name="searchinput" />
                         <button className="btn" type="submit">
                             <img src={search} alt="Search" width="20" height="20" />
+                            Hello
                         </button>
                     </form>
                 )}
             </div>
+        </div>
+        <Footer />
         </div>
     );
 }
