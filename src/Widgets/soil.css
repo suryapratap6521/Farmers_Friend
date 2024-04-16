@@ -68,7 +68,10 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
 }
 
 .soil-container button:hover {

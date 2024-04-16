@@ -8,7 +8,7 @@ export const navItems = [
     },
     {
         title: "Community",
-        link: '/link'
+        link: '/community'
     },
     {
         title: "Soil Understanding",

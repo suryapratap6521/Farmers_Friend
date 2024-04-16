@@ -52,6 +52,14 @@ const Soil = () => {
                                 <option value="">Select Soil Type</option>
                                 <option value="Clay">Clay</option>
                                 <option value="Sandy">Sandy</option>
+                                <option value="Loamy">Loamy</option>
+                                <option value="Saline">Saline</option>
+                                <option value="Silty">Silty</option>
+                                <option value="Peaty">Peaty</option>
+                                <option value="Chalky">Chalky</option>
+                                <option value="Rocky">Rocky</option>
+                                <option value="Alkaline">Alkaline</option>
+                                <option value="Acidic">Acidic</option>
                             </select>
                         </label>
                     </div>
