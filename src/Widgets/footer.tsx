@@ -35,11 +35,26 @@ const Footer = () => {
                     <div className="md:w-[50%] flex justify-around">
                         <div>
                             <ul>
-                                <li className="text-xl pb-4 cursor-pointer">Weather</li>
-                                <li className="text-xl pb-4 cursor-pointer">Community</li>
-                                <li className="text-xl pb-4 cursor-pointer">Soil Understanding</li>
-                                <li className="text-xl pb-4 cursor-pointer">Ask Us</li>
-                                <li className="text-xl pb-4 cursor-pointer">Get Help</li>
+                                <li className="text-xl pb-4 cursor-pointer">
+                                    <Link to={"/weather"}>
+                                        Weather
+                                    </Link>
+                                </li>
+                                <li className="text-xl pb-4 cursor-pointer">
+                                    <Link to={"/soil"}>
+                                        Soil Understanding
+                                    </Link>
+                                </li>
+                                <li className="text-xl pb-4 cursor-pointer">
+                                    <Link to={"/smartbot"}>
+                                        Ask Us
+                                    </Link>
+                                </li>
+                                <li className="text-xl pb-4 cursor-pointer">
+                                    <Link to={"/community"}>
+                                        Get Help
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>

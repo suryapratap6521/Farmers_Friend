@@ -4,15 +4,19 @@ import React from 'react'
 export const navItems = [
     {
         title: "Weather",
+        link: '/weather'
     },
     {
         title: "Community",
+        link: '/link'
     },
     {
         title: "Soil Understanding",
+        link: '/soil'
     },
     {
         title: "Ask Us",
+        link: '/smartbot'
     },
 ];
 
@@ -21,7 +25,7 @@ const NavItems = () => {
         <div className='w-full hidden md:flex items-center'>
             {
                 navItems.map((i, index) => (
-                    <Link key={index} to={'/'} className='px-5 text-lg'>
+                    <Link key={index} to={`${i.link}`} className='px-5 text-lg'>
                         {i.title}
                     </Link>
                 ))
