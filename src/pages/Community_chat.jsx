@@ -2,45 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createMessage, deleteMessage, getAllMessage, allUserApi } from '../services/operations/CommunityApi';
 import { toast } from "react-hot-toast";
-import { Container, Typography, TextField, Grid, Paper, AppBar, Toolbar, Avatar, IconButton, Divider } from '@mui/material';
+import { Container, Typography, TextField, Grid, Paper, AppBar, Toolbar, Avatar, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import farmerImg from "../assets/farmer.jpg";
-// import user1 from "../assets/user1.jpg";
-// import user2 from "../assets/user2.jpg";
-import Box from '@mui/material/Box';
-
-// Styling the chat bubble
-const ChatBubble = styled(Paper)({
-  margin: '10px 0',
-  padding: '10px',
-  borderRadius: '10px',
-  display: 'flex',
-  flexDirection: 'column',
-  maxWidth: '70%',
-});
-
-// Styling the sender's chat bubble
-const SenderChatBubble = styled(ChatBubble)({
-  backgroundColor: '#A8DDFD',
-  alignSelf: 'flex-end',
-});
-
-// Styling the receiver's chat bubble
-const ReceiverChatBubble = styled(ChatBubble)({
-  backgroundColor: '#f8e896',
-  alignSelf: 'flex-start',
-});
-
-// Styling the user list
-const StyledUserList = styled('div')({
-  padding: '10px',
-  backgroundColor: '#f5f5f5',
-  borderRadius: '10px',
-  height: 'calc(100vh - 64px)',
-  overflowY: 'auto',
-});
 
 // Styling individual user item
 const StyledUserItem = styled(Paper)({
@@ -54,11 +20,35 @@ const StyledUserItem = styled(Paper)({
   },
 });
 
-// Styling the chat container
-const ChatContainer = styled(Grid)({
-  padding: '20px',
-  height: 'calc(100vh - 128px)',
+// Styling the user list
+const StyledUserList = styled('div')({
+  padding: '10px',
+  backgroundColor: '#f5f5f5',
+  borderRadius: '10px',
+  height: 'calc(100vh - 64px)',
   overflowY: 'auto',
+});
+
+// Styling the chat bubble
+const ChatBubble = styled(Paper)({
+  margin: '10px 0',
+  padding: '10px',
+  borderRadius: '10px',
+  display: 'flex',
+  flexDirection: 'column',
+  maxWidth: '70%',
+});
+
+// Styling the sender's chat bubble
+const SenderChatBubble = styled(ChatBubble)({
+  backgroundColor: '#DCF8C6', // Light green color for sender
+  alignSelf: 'flex-end',
+});
+
+// Styling the receiver's chat bubble
+const ReceiverChatBubble = styled(ChatBubble)({
+  backgroundColor: '#ECE5DD', // Light gray color for receiver
+  alignSelf: 'flex-start',
 });
 
 const CommunityChat = () => {
@@ -115,9 +105,9 @@ const CommunityChat = () => {
     }
   }, [inputRef]);
 
-  const formatDate = (timestamp) => {
+  const formatTime = (timestamp) => {
     const date = new Date(timestamp);
-    return date.toLocaleString();
+    return date.toLocaleTimeString();
   };
 
   return (
@@ -133,25 +123,31 @@ const CommunityChat = () => {
       </AppBar>
       <Toolbar /> {/* To push content below the app bar */}
       <Grid container style={{ marginTop: '64px' }}>
-        <Grid item xs={12} md={8} component={ChatContainer}>
+        <Grid item xs={12} md={8} style={{ padding: '20px', height: 'calc(100vh - 128px)', overflowY: 'auto' }}>
           {messages.map((msg) => (
             <div key={msg._id} ref={chatEndRef}>
               {user._id === msg.user._id ? (
-                <SenderChatBubble>
-                  <Typography variant="body1">{msg.message}</Typography>
-                  <Typography variant="caption">{formatDate(msg.createdAt)}</Typography>
-                  <IconButton onClick={() => handleDeleteMessage(msg._id)} style={{ color: 'red', cursor: 'pointer', position: 'absolute', top: '5px', right: '5px' }}>
-                    <DeleteIcon />
-                  </IconButton>
-                </SenderChatBubble>
-              ) : (
-                <ReceiverChatBubble>
-                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
-                    <Avatar alt="user avatar" src={msg.user.image} />
-                    <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>{msg.user.username}</Typography>
+                <SenderChatBubble sx={{height:"110px"}}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar src={msg.user.image} style={{ marginRight: '8px' }} />
+                    <Typography variant="subtitle1" sx={{ color: 'success' }}>{msg.user.username}</Typography>
                   </div>
                   <Typography variant="body1">{msg.message}</Typography>
-                  <Typography variant="caption">{formatDate(msg.createdAt)}</Typography>
+                  <Typography variant="caption">{formatTime(msg.createdAt)}</Typography>
+                  {user._id === msg.user._id && (
+                    <IconButton onClick={() => handleDeleteMessage(msg._id)} style={{ color: 'red', cursor: 'pointer', left: '200px',bottom:"40px" }}>
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
+                </SenderChatBubble>
+              ) : (
+                <ReceiverChatBubble> 
+                  <div style={{ display: 'flex',alignItems: 'center' }}>
+                    <Avatar src={msg.user.image} style={{ marginRight: '8px' }} />
+                    <Typography variant="subtitle1" sx={{ color: 'primary' }}>{msg.user.username}</Typography>
+                  </div>
+                  <Typography variant="body1">{msg.message}</Typography>
+                  <Typography variant="caption">{formatTime(msg.createdAt)}</Typography>
                 </ReceiverChatBubble>
               )}
             </div>
