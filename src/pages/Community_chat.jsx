@@ -1,12 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createMessage, deleteMessage, getAllMessage, allUserApi } from '../services/operations/CommunityApi';
-import { toast } from "react-hot-toast";
-import { Container, Typography, TextField, Grid, Paper, AppBar, Toolbar, Avatar, IconButton } from '@mui/material';
+import {
+  createMessage,
+  deleteMessage,
+  getAllMessage,
+  allUserApi,
+} from '../services/operations/CommunityApi';
+import { toast } from 'react-hot-toast';
+import {
+  Container,
+  Typography,
+  TextField,
+  Grid,
+  Paper,
+  AppBar,
+  Toolbar,
+  Avatar,
+  IconButton,
+} from '@mui/material';
 import { styled } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import farmerImg from "../assets/farmer.jpg";
+import farmerImg from '../assets/farmer.jpg';
 
 // Styling individual user item
 const StyledUserItem = styled(Paper)({
@@ -52,7 +67,7 @@ const ReceiverChatBubble = styled(ChatBubble)({
 });
 
 const CommunityChat = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [inputRef, setInputRef] = useState(null); // Reference to the input field
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
@@ -66,10 +81,10 @@ const CommunityChat = () => {
         await getAllMessage(token, dispatch);
         await allUserApi(dispatch, token);
         // Scroll to the end of the chat when messages are loaded
-        chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+        chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
       } catch (error) {
-        console.error("Error fetching data:", error);
-        toast.error("Failed to fetch data");
+        console.error('Error fetching data:', error);
+        toast.error('Failed to fetch data');
       }
     };
     fetchData();
@@ -79,24 +94,24 @@ const CommunityChat = () => {
     event.preventDefault();
     try {
       await createMessage(message, token, dispatch);
-      setMessage("");
+      setMessage('');
       // Scroll to the end of the chat after sending a message
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     } catch (error) {
-      console.error("Error creating message:", error);
-      toast.error("Failed to send message");
+      console.error('Error creating message:', error);
+      toast.error('Failed to send message');
     }
-  }
+  };
 
   const handleDeleteMessage = async (messageId) => {
     try {
       await deleteMessage(messageId, token, dispatch);
-      toast.success("Message deleted");
+      toast.success('Message deleted');
     } catch (error) {
-      console.error("Error deleting message:", error);
-      toast.error("Failed to delete message");
+      console.error('Error deleting message:', error);
+      toast.error('Failed to delete message');
     }
-  }
+  };
 
   useEffect(() => {
     // Focus on the input field when the component mounts or refreshes
@@ -115,39 +130,91 @@ const CommunityChat = () => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Avatar src={farmerImg} />
-          <Typography variant="h6" sx={{ marginLeft: '10px', flexGrow: 1 }}>Farmer's Community</Typography>
+          <Typography variant="h6" sx={{ marginLeft: '10px', flexGrow: 1 }}>
+            Farmer's Community
+          </Typography>
           {allUsers.map((user) => (
-            <Avatar key={user._id} src={user.image} sx={{ marginLeft: '-5px', border: '2px solid white', position: 'relative', zIndex: '1' }} />
+            <Avatar
+              key={user._id}
+              src={user.image}
+              sx={{
+                marginLeft: '-5px',
+                border: '2px solid white',
+                position: 'relative',
+                zIndex: '1',
+              }}
+            />
           ))}
         </Toolbar>
       </AppBar>
       <Toolbar /> {/* To push content below the app bar */}
       <Grid container style={{ marginTop: '64px' }}>
-        <Grid item xs={12} md={8} style={{ padding: '20px', height: 'calc(100vh - 128px)', overflowY: 'auto' }}>
+        <Grid
+          item
+          xs={12}
+          md={8}
+          style={{
+            padding: '20px',
+            height: 'calc(100vh - 128px)',
+            overflowY: 'auto',
+          }}
+        >
           {messages.map((msg) => (
             <div key={msg._id} ref={chatEndRef}>
               {user._id === msg.user._id ? (
-                <SenderChatBubble sx={{height:"110px"}}>
+                <SenderChatBubble
+                  sx={{ height: '110px', width: '300px', marginLeft: '420px' }}
+                >
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src={msg.user.image} style={{ marginRight: '8px' }} />
-                    <Typography variant="subtitle1" sx={{ color: 'success' }}>{msg.user.username}</Typography>
+                    <Avatar
+                      src={msg.user.image}
+                      style={{ marginRight: '8px' }}
+                    />
+                    <Typography variant="subtitle1" sx={{ color: 'success' }}>
+                      {msg.user.username}
+                    </Typography>
                   </div>
                   <Typography variant="body1">{msg.message}</Typography>
-                  <Typography variant="caption">{formatTime(msg.createdAt)}</Typography>
+                  <Typography variant="caption">
+                    {formatTime(msg.createdAt)}
+                  </Typography>
                   {user._id === msg.user._id && (
-                    <IconButton onClick={() => handleDeleteMessage(msg._id)} style={{ color: 'red', cursor: 'pointer', left: '200px',bottom:"40px" }}>
+                    <IconButton
+                      onClick={() => handleDeleteMessage(msg._id)}
+                      style={{
+                        color: 'red',
+                        cursor: 'pointer',
+                        left: '100px',
+                        bottom: '40px',
+                      }}
+                    >
                       <DeleteIcon />
                     </IconButton>
                   )}
                 </SenderChatBubble>
               ) : (
-                <ReceiverChatBubble> 
-                  <div style={{ display: 'flex',alignItems: 'center' }}>
-                    <Avatar src={msg.user.image} style={{ marginRight: '8px' }} />
-                    <Typography variant="subtitle1" sx={{ color: 'primary' }}>{msg.user.username}</Typography>
+                <ReceiverChatBubble
+                  style={{ width: '320px' }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Avatar
+                      src={msg.user.image}
+                      style={{ marginRight: '8px' }}
+                    />
+                    <Typography variant="subtitle1" sx={{ color: 'primary' }}>
+                      {msg.user.username}
+                    </Typography>
                   </div>
                   <Typography variant="body1">{msg.message}</Typography>
-                  <Typography variant="caption">{formatTime(msg.createdAt)}</Typography>
+                  <Typography variant="caption">
+                    {formatTime(msg.createdAt)}
+                  </Typography>
                 </ReceiverChatBubble>
               )}
             </div>
@@ -155,7 +222,9 @@ const CommunityChat = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <StyledUserList>
-            <Typography variant="h6" gutterBottom>Farmers In Community</Typography>
+            <Typography variant="h6" gutterBottom>
+              Farmers In Community
+            </Typography>
             {allUsers.map((user) => (
               <StyledUserItem key={user._id}>
                 <Avatar alt="user avatar" src={user.image} />
@@ -165,7 +234,18 @@ const CommunityChat = () => {
           </StyledUserList>
         </Grid>
       </Grid>
-      <form onSubmit={handleMessageSubmit} style={{ position: 'fixed', bottom: '0', left: '0', width: '100%', padding: '10px', borderTop: '1px solid #ccc', backgroundColor: '#f9f9f9' }}>
+      <form
+        onSubmit={handleMessageSubmit}
+        style={{
+          position: 'fixed',
+          bottom: '0',
+          left: '0',
+          width: '100%',
+          padding: '10px',
+          borderTop: '1px solid #ccc',
+          backgroundColor: '#f9f9f9',
+        }}
+      >
         <TextField
           label="Type your message..."
           variant="outlined"
@@ -184,6 +264,6 @@ const CommunityChat = () => {
       </form>
     </Container>
   );
-}
+};
 
 export default CommunityChat;
