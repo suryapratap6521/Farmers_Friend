@@ -1,13 +1,12 @@
-<center>FARMERS FRIEND</center>
+<h1 align="center"> FARMERS FRIEND </h1>
 
-    ![1713333127394](image/README/1713333127394.png)
+    ![1713335314836](image/README/1713335314836.png)
 
-### OBJECTIVE : 
+### OBJECTIVE :
 
     Creating a user-friendly smart agriculture advisory app aimed at providing farmers
     with essential information and recommendations to enhance crop yield and
     efficiency in resource usage
-
 
 ### FEATURES LIST :
 
@@ -16,9 +15,7 @@
 3. Community Forum
 4. Crop Suitability Assessment
 
-
    ![1713333986299](image/README/1713333986299.png)
-
 
 # Run Scripts
 
@@ -34,15 +31,11 @@ npm install
 npm start
 ```
 
-
-
 # Environment Variables
 
   Create an { .env } file in server directory and add these env variables to run the Code base successfully.
 
 ---
-
-
 
 ```Terminal
 PORT=5000
