@@ -1,6 +1,6 @@
 <h1 align="center"> FARMERS FRIEND </h1>
 
-    ![1713335314836](image/README/1713335314836.png)
+<div align="center"> <img src="https://github.com/suryapratap6521/Farmers_Friend/blob/main/src/assets/logo1.png?raw=true"></div>    
 
 ### OBJECTIVE :
 
