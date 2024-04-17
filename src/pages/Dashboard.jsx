@@ -10,12 +10,12 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Chatbot />
             <Header />
             <Banner />
             <Branding />
             <Benefits />
-            <Footer />
+            <Chatbot />
+            <Footer style={{paddingTop:'20px'}}/>
         </div>
     )
 }

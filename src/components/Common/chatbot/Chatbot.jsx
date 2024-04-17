@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-
+import ChatBot from '../../../assets/Chatbot.jpeg'
 function Chatbot() {
   const [userMessage, setUserMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([
@@ -88,7 +88,9 @@ function Chatbot() {
   return (
     <div>
       <button className="chatbot-toggler" onClick={toggleChatbot}>
-        <span className="material-symbols-rounded">Chatbot</span>
+        <span className="material-symbols-rounded" style={{width:"50px",height:"50px",borderRadius:"50%"}}>
+        <img src={ChatBot} style={{width:"80px",height:"50px",borderRadius:"50%"}}></img>
+        </span>
         <span className="material-symbols-outlined">close</span>
       </button>
       <div className={`chatbot ${showChatbot ? '' : 'hidden'}`}>
