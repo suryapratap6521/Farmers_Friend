@@ -1,6 +1,6 @@
 <h1 align="center"> FARMERS FRIEND </h1>
 
-<div align="center"> <img src="https://github.com/suryapratap6521/Farmers_Friend/blob/main/src/assets/logo1.png?raw=true"></div>    
+<div align="center"> <img src="https://github.com/suryapratap6521/Farmers_Friend/blob/main/src/assets/logo1.png?raw=true"></div>
 
 ### OBJECTIVE :
 
@@ -20,7 +20,7 @@
 # Run Scripts
 
 ```Terminal
-git clone https://github.com/suryapratap6521/Farmers_Friend.git
+git clone https://github.com/shhiivvaam/Farmers_Friend.git
 
 cd Farmers_Friend
 npm install
@@ -38,6 +38,8 @@ npm start
 ---
 
 ```Terminal
+// BACKEND
+
 PORT=5000
 MONGODB_URL = ENTER YOU MONGODB DATABASE CONNECTION STRING
 
@@ -48,4 +50,9 @@ MAIL_USER= ENTER YOUR EMAIL ADDRESS (FOR MAILING SERVICES)
 MAIL_PASS=ewvjaiadwhtpymib
 
 API_KEY = ENTER YOUR GOOGLE STUDIO API KEY
+
+
+// FRONTEND
+
+REACT_APP_BASE_URL = <YOUR_SERVER_RUNNING_PORT_ADDRESS>/api/v1
 ```
